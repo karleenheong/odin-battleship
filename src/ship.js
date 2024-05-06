@@ -17,7 +17,7 @@ export default class Ship {
   }
 
   setCoords(coords) {
-    this.coords.push(coords);
+    this.coords = coords;
   }
 
   getCoords() {

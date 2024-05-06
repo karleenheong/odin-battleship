@@ -1,4 +1,5 @@
 import './style.css';
+import Gameboard from "./gameboard";
 
 function component() {
   const element = document.createElement('div');
@@ -10,3 +11,7 @@ function component() {
 }
 
 document.body.appendChild(component());
+
+const gameboard = new Gameboard();
+// const ships = gameboard.getShips();
+// // console.log(ships);

@@ -24,23 +24,23 @@ export default class Gameboard {
 
   createShips() {
     // ships needed - 4x1, 3x2, 2x3, 1x4
-    for(let i=0; i<4; i++) {
-      const newShip = new Ship(1);
+    let newShip = new Ship(4);
+    this.ships.push(newShip);
+
+    for(let i=0; i<2; i++) {
+      newShip = new Ship(3);
       this.ships.push(newShip);
     }
 
     for(let i=0; i<3; i++) {
-      const newShip = new Ship(2);
+      newShip = new Ship(2);
       this.ships.push(newShip);
     }
 
-    for(let i=0; i<2; i++) {
-      const newShip = new Ship(3);
+    for(let i=0; i<4; i++) {
+      newShip = new Ship(1);
       this.ships.push(newShip);
     }
-
-    const newShip = new Ship(4);
-    this.ships.push(newShip);
   }
 
   getShips() {
@@ -73,7 +73,7 @@ export default class Gameboard {
 
       if(shipLength === 1) {
         validPathFound = true;
-        return [x, y];
+        return [[x, y]];
       }
 
       // find the coords for all 4 sides
@@ -108,20 +108,30 @@ export default class Gameboard {
       paths.push(currentPath);
 
       // find a valid path
-      let validPath;
+      const validCoords = [];
       for(let i=0; i<paths.length; i++) {
         currentPath = paths[i];
+
         // check each coord for validity
         for(let j=0; j<currentPath.length; j++) {
-          validPath = true;
-          if(currentPath[j][0] > 9 || currentPath[j][0] < 0 || currentPath[j][1] > 9 || currentPath[j][1] < 0 || this.board[currentPath[j][0]][currentPath[j][1]] >= 0) {
-            validPath = false;
-            break;
+          if(currentPath[j][0] <= 9 && currentPath[j][0] >= 0) {
+            if(currentPath[j][1] <= 9 && currentPath[j][1] >= 0) {
+              if(this.board[currentPath[j][0]][currentPath[j][1]] === -1) {
+                validCoords.push(1);
+              }
+            }
+          } else {
+            validCoords.push(0);
           }
-          if(validPath) {
-            validPathFound = true;
-            return currentPath;
-          }
+        }
+        let sum = 0;
+        for(let k=0; k<validCoords.length; k++) {
+          sum += validCoords[k];
+        }
+
+        if(sum === validCoords.length) {
+          validPathFound = true;
+          return currentPath;
         }
       }
     }
@@ -129,12 +139,12 @@ export default class Gameboard {
   }
 
   placeShips() {
-    const ship = this.getShips()[9];
-    const coords = this.generateCoords(ship.getLength());
-    ship.setCoords(coords);
-
-    for(let i=0; i<coords.length; i++) {
-      this.board[coords[i][0]][coords[i][1]] = 9;
+    for(let i=0; i<this.ships.length; i++) {
+      const coords = this.generateCoords(this.ships[i].getLength());
+      this.ships[i].setCoords(coords);
+      for(let j=0; j<coords.length; j++) {
+        this.board[coords[j][0]][coords[j][1]] = i;
+      }
     }
   }
 
