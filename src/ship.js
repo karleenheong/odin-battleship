@@ -23,4 +23,8 @@ export default class Ship {
   getCoords() {
     return this.coords;
   }
+
+  getLength() {
+    return this.length;
+  }
 }
