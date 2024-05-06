@@ -8,7 +8,7 @@ module.exports = {
       '<rootDir>/__mocks__/fileMock.js',
     '\\.(css|less)$': '<rootDir>/__mocks__/styleMock.js',
 
-    '^react(.*)$': '<rootDir>/vendor/react-master$1',
-    '^config$': '<rootDir>/configs/app-config.js',
+    // '^react(.*)$': '<rootDir>/vendor/react-master$1',
+    // '^config$': '<rootDir>/configs/app-config.js',
   },
 };
