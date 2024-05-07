@@ -1,3 +1,5 @@
+/* eslint-disable class-methods-use-this */
+/* eslint-disable no-param-reassign */
 /* eslint-disable no-lonely-if */
 /* eslint-disable no-restricted-syntax */
 /* eslint-disable no-plusplus */
@@ -47,6 +49,14 @@ export default class Gameboard {
   getShips() {
     return this.ships;
   }
+
+  shuffleArray(array) { 
+    for (let i = array.length - 1; i > 0; i--) { 
+      const j = Math.floor(Math.random() * (i + 1)); 
+      [array[i], array[j]] = [array[j], array[i]]; 
+    } 
+    return array; 
+  } 
 
   surroundedByEmptySquares(x, y) {
     const surrounds = [];
@@ -128,10 +138,13 @@ export default class Gameboard {
       }
       paths.push(currentPath);
 
+      // shuffle paths array
+      const shuffledPaths = this.shuffleArray(paths);
+
       // find a valid path
       let validCoords = [];
-      for(let i=0; i<paths.length; i++) {
-        currentPath = paths[i];
+      for(let i=0; i<shuffledPaths.length; i++) {
+        currentPath = shuffledPaths[i];
 
         // check each coord for validity
         for(let j=0; j<currentPath.length; j++) {
