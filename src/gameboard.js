@@ -186,11 +186,19 @@ export default class Gameboard {
     } else {
       // send hit to ship
       this.ships[this.board[coords[0]][coords[1]]].hit();
+
+      // check if all ships sunk
     }
   }
 
   allShipsSunk() {
-    if(this.ships.length === 0) {
+    let sum = 0;
+    for(let i=0; i<this.ships.length; i++) {
+      if(this.ships[i].isSunk()) {
+        sum += 1;
+      }
+    }
+    if(sum === 10) {
       return true;
     }
     return false;

@@ -110,3 +110,22 @@ test('gameboard tells ship it has been hit', () => {
   gameboard.receiveAttack(coords);
   expect(ships[shipNo].getHits()).toBe(1);
 });
+
+test('ship knows when it is sunk', () => {
+  // let's sink the longest ship
+  const coords = ships[0].getCoords();
+  for(let i=0; i<coords.length; i++) {
+    gameboard.receiveAttack(coords[i]);
+  }
+  expect(ships[0].isSunk()).toBeTruthy();
+});
+
+test('gameboard knows when all its ships are sunk', () => {
+  // sink all the ships
+  for(let i=0; i<ships.length; i++) {
+    for(let j=0; j<ships[i].getCoords().length; j++) {
+      gameboard.receiveAttack(ships[i].getCoords()[j]);
+    }
+  }
+  expect(gameboard.allShipsSunk()).toBeTruthy();
+});
