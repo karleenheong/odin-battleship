@@ -1,3 +1,4 @@
+/* eslint-disable no-lonely-if */
 /* eslint-disable no-restricted-syntax */
 /* eslint-disable no-plusplus */
 import Ship from "./ship";
@@ -47,6 +48,26 @@ export default class Gameboard {
     return this.ships;
   }
 
+  surroundedByEmptySquares(x, y) {
+    const surrounds = [];
+    surrounds.push([x, y + 1]); // n
+    surrounds.push([x + 1, y + 1]); // ne
+    surrounds.push([x + 1, y]); // e
+    surrounds.push([x + 1, y - 1]); // se
+    surrounds.push([x, y - 1]); // s
+    surrounds.push([x - 1, y - 1]); // sw
+    surrounds.push([x - 1, y]); // w
+    surrounds.push([x - 1, y + 1]) // nw
+    
+    for(let i=0; i<surrounds.length; i++) {
+      // if square on board, check if has ship
+      if(surrounds[i][0] >= 0 && surrounds[i][0] <= 9 && surrounds[i][1] >= 0 && surrounds[i][1] <= 9 && this.board[surrounds[i][0]][surrounds[i][1]] >= 0) {
+        return false;
+      }
+    }
+    return true;
+  }
+
   generateHeadCoord() {
     let validHead = false;
     let x = Math.floor(Math.random() * 10)
@@ -54,11 +75,11 @@ export default class Gameboard {
 
     // make sure the head coord is free
     while(!validHead) {
-      if(this.board[x][y] >= 0) {
+      if(this.board[x][y] === -1 && this.surroundedByEmptySquares(x, y)) {
+        validHead = true;
+      } else {
         x = Math.floor(Math.random() * 10);
         y = Math.floor(Math.random() * 10);
-      } else {
-        validHead = true;
       }
     }
     return [x, y];
@@ -114,7 +135,7 @@ export default class Gameboard {
 
         // check each coord for validity
         for(let j=0; j<currentPath.length; j++) {
-          if(currentPath[j][0] <= 9 && currentPath[j][0] >= 0 && currentPath[j][1] <= 9 && currentPath[j][1] >= 0 && this.board[currentPath[j][0]][currentPath[j][1]] === -1) {
+          if(currentPath[j][0] <= 9 && currentPath[j][0] >= 0 && currentPath[j][1] <= 9 && currentPath[j][1] >= 0 && this.board[currentPath[j][0]][currentPath[j][1]] === -1 && this.surroundedByEmptySquares(currentPath[j][0], currentPath[j][1])) {
             validCoords.push(1);
           } else {
             validCoords.push(0);
