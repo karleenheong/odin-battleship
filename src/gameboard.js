@@ -108,18 +108,14 @@ export default class Gameboard {
       paths.push(currentPath);
 
       // find a valid path
-      const validCoords = [];
+      let validCoords = [];
       for(let i=0; i<paths.length; i++) {
         currentPath = paths[i];
 
         // check each coord for validity
         for(let j=0; j<currentPath.length; j++) {
-          if(currentPath[j][0] <= 9 && currentPath[j][0] >= 0) {
-            if(currentPath[j][1] <= 9 && currentPath[j][1] >= 0) {
-              if(this.board[currentPath[j][0]][currentPath[j][1]] === -1) {
-                validCoords.push(1);
-              }
-            }
+          if(currentPath[j][0] <= 9 && currentPath[j][0] >= 0 && currentPath[j][1] <= 9 && currentPath[j][1] >= 0 && this.board[currentPath[j][0]][currentPath[j][1]] === -1) {
+            validCoords.push(1);
           } else {
             validCoords.push(0);
           }
@@ -133,6 +129,7 @@ export default class Gameboard {
           validPathFound = true;
           return currentPath;
         }
+        validCoords = [];
       }
     }
     return null;
@@ -148,9 +145,15 @@ export default class Gameboard {
     }
   }
 
-  // receiveAttack() {
-
-  // }
+  receiveAttack(coords) {
+    if(this.board[coords[0]][coords[1]] === -1) {
+      // record missed shot
+      this.missedShots.push(coords);
+    } else {
+      // send hit to ship
+      this.ships[this.board[coords[0]][coords[1]]].hit();
+    }
+  }
 
   allShipsSunk() {
     if(this.ships.length === 0) {
@@ -161,5 +164,9 @@ export default class Gameboard {
 
   getBoard() {
     return this.board;
+  }
+
+  getMissedShots() {
+    return this.missedShots;
   }
 }

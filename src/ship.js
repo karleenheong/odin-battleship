@@ -27,4 +27,8 @@ export default class Ship {
   getLength() {
     return this.length;
   }
+
+  getHits() {
+    return this.hits;
+  }
 }

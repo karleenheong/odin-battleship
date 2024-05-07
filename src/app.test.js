@@ -31,9 +31,13 @@ test('gameboard should generate random coords for all 10 ships and place them on
   for(let i=0; i<10; i++) {
     for(let j=0; j<10; j++) {
       if(gameboard.getBoard()[i][j] >= 0) {
+        console.log(`${i}, ${j}`);
         shipParts += 1;
       }
     }
+  }
+  for(let i=0; i<ships.length; i++) {
+    console.log(ships[i].getCoords());
   }
   expect(shipParts).toBe(20);
 });
@@ -64,4 +68,45 @@ test('ships 1-2 should have coordinate array equal to length 3', () => {
 
 test('ship 0 should have coordinate array equal to length 4', () => {
   expect(ships[0].getCoords().length).toBe(4);
+});
+
+test('gameboard records missed shots', () => {
+  // find empty coords
+  let coords = null;
+  let emptySquare = false;
+  let x;
+  let y;
+  while(!emptySquare) {
+    x = Math.floor(Math.random() * 10)
+    y = Math.floor(Math.random() * 10);
+
+    if(gameboard.getBoard()[x][y] === -1) {
+      emptySquare = true;
+      coords = [x, y];
+    }
+  }
+
+  gameboard.receiveAttack(coords);
+  expect(gameboard.getMissedShots()).toHaveLength(1);
+});
+
+test('gameboard tells ship it has been hit', () => {
+  let coords = null;
+  let squareWithShip = false;
+  let x;
+  let y;
+  let shipNo;
+  while(!squareWithShip) {
+    x = Math.floor(Math.random() * 10)
+    y = Math.floor(Math.random() * 10);
+
+    if(gameboard.getBoard()[x][y] >= 0) {
+      squareWithShip = true;
+      coords = [x, y];
+      shipNo = gameboard.getBoard()[x][y];
+    }
+  }
+
+  gameboard.receiveAttack(coords);
+  expect(ships[shipNo].getHits()).toBe(1);
 });
