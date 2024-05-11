@@ -1,3 +1,55 @@
-.hello {
-  color: red;
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  text-align: center;
+  font-family: Arial, Helvetica, sans-serif;
 }
+
+#container {
+  display: flex;
+  gap: 50px;
+  width: 100%;
+  justify-content: center;
+  align-items: center;
+}
+
+.boardContainer {
+  background-color: whitesmoke;
+  height: 350px;
+  width: 350px;
+  display: grid;
+  grid-template-columns: repeat(10, 1fr);
+  grid-template-rows: repeat(10, 1fr);
+}
+
+.ocean,
+.ship,
+.shipDead {
+  height: 95%;
+  width: 95%;
+}
+
+.ocean {
+  background-color: lightskyblue;
+}
+
+.ship {
+  background-color: orange;
+}
+
+.shipDead {
+  background-color: red;
+}
+
+.missedShot {
+  background-color: black;
+}
+
+.coordsText {
+  font-size: 1rem;
+}
+
+/* div {
+  border: 2px solid purple;
+} */

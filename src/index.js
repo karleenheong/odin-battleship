@@ -1,17 +1,18 @@
-import './style.css';
-import Gameboard from "./gameboard";
+import runGame from "./app";
 
-function component() {
-  const element = document.createElement('div');
+runGame();
 
-  element.textContent = 'HELLO BITCH';
-  element.classList.add('hello');
+// function component() {
+//   const element = document.createElement('div');
 
-  return element;
-}
+//   element.textContent = 'HELLO BITCH';
+//   element.classList.add('hello');
 
-document.body.appendChild(component());
+//   return element;
+// }
 
-const gameboard = new Gameboard();
-// const ships = gameboard.getShips();
-// // console.log(ships);
+// document.body.appendChild(component());
+
+
+
+
