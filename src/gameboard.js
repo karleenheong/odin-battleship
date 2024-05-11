@@ -10,6 +10,7 @@ export default class Gameboard {
     this.board = new Array(10);
     this.missedShots = [];
     this.ships = [];
+    this.successfulHits = [];
 
     for(let i=0; i<this.board.length; i++) {
       this.board[i] = new Array(10);
@@ -186,8 +187,7 @@ export default class Gameboard {
     } else {
       // send hit to ship
       this.ships[this.board[coords[0]][coords[1]]].hit();
-
-      // check if all ships sunk
+      this.successfulHits.push(coords);
     }
   }
 
@@ -210,5 +210,9 @@ export default class Gameboard {
 
   getMissedShots() {
     return this.missedShots;
+  }
+
+  getSuccessfulHits() {
+    return this.successfulHits;
   }
 }
