@@ -1,7 +1,8 @@
 /* eslint-disable no-plusplus */
 import './style.css';
 import Player from './player';
-import { displayBoard, enableBoard, disableBoard, displayPlayerTurn, processClick } from './dom';
+// eslint-disable-next-line import/no-cycle
+import { displayBoard, displayPlayerTurn, processClick, activateButtons, deactivateButtons } from './dom';
 
 let leftPlayer = null;
 let rightPlayer = null;
@@ -46,12 +47,12 @@ function generateValidCoords() {
 
 export function triggerCompTurn() {
   displayPlayerTurn(rightPlayer);
-  // enableBoard(leftPlayer);
-  // disableBoard(rightPlayer);
+  deactivateButtons(rightPlayer);
   const coords = generateValidCoords();
   const squareId = `0${coords[0]}${coords[1]}`;
   processClick(squareId, leftPlayer, coords[0], coords[1]);
   displayPlayerTurn(leftPlayer);
+  activateButtons(rightPlayer);
 }
 
 export default function runGame() {
@@ -72,10 +73,10 @@ export default function runGame() {
   if(leftPlayerTurn) {
     console.log('player turn');
     displayPlayerTurn(leftPlayer);
-    // enableBoard(rightPlayer);
-    // disableBoard(leftPlayer);
+    activateButtons(rightPlayer);
   } else {
     console.log('comp turn');
+    deactivateButtons(rightPlayer);
     triggerCompTurn();
   }
 }

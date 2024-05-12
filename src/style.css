@@ -21,6 +21,15 @@
   background-color: aquamarine;
 }
 
+button {
+  outline: none;
+  border: none;
+}
+
+.unclickable { 
+  pointer-events: none; 
+} 
+
 .boardContainer {
   background-color: whitesmoke;
   height: 350px;
@@ -50,7 +59,7 @@
 }
 
 .missedShot {
-  background-color: black;
+  background-color: grey;
 }
 
 .coordsText {
