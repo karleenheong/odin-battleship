@@ -10,21 +10,19 @@ const rightPlayerButtons = [];
 export function displayPlayerTurn(currentPlayer) {
   instructions.textContent = '';
   if(currentPlayer.getId() === 0) {
-    instructions.textContent = "Left Player's turn";
+    instructions.textContent = "Player One's Turn";
   } else {
-    instructions.textContent = "Right Player's turn";
+    instructions.textContent = "Player Two's Turn";
   }
 }
 
 function displayResultsText(player) {
-  const resultText = document.createElement('div');
-  resultText.className = 'resultText';
+  instructions.textContent = '';
   if(player.getId() === 0) {
-    resultText.textContent = 'Right Player wins!';
+    instructions.textContent = 'Player Two Wins!';
   } else {
-    resultText.textContent = 'Left Player wins!'
+    instructions.textContent = 'Player One Wins!'
   }
-  container.appendChild(resultText);
 }
 
 function removeActiveButton(player, button) {
