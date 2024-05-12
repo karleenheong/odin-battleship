@@ -2,7 +2,7 @@
 import './style.css';
 import Player from './player';
 // eslint-disable-next-line import/no-cycle
-import { displayBoard, displayPlayerTurn, processClick, activateButtons, deactivateButtons } from './dom';
+import { displayBoard, displayPlayerTurn, processClick, activateButtons, deactivateButtons, hideBoard } from './dom';
 
 let leftPlayer = null;
 let rightPlayer = null;
@@ -61,6 +61,7 @@ export default function runGame() {
 
   displayBoard(leftPlayer);
   displayBoard(rightPlayer);
+  hideBoard(rightPlayer);
 
   const firstTurn = determineFirstTurn();
 

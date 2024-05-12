@@ -66,6 +66,7 @@ export function processClick(squareId, player, x, y) {
   }
 
   square.disabled = true;
+  square.classList.remove('hide');
   removeActiveButton(player, square);
   checkAllShipsSunk(player);
 
@@ -111,7 +112,6 @@ function renderBoard(player) {
 }
 
 export function activateButtons(player) {
-  console.log('active');
   if(player.getId() === 0) {
     for(let i=0; i<leftPlayerButtons.length; i++) {
       leftPlayerButtons[i].disabled = false;
@@ -124,7 +124,6 @@ export function activateButtons(player) {
 }
 
 export function deactivateButtons(player) {
-  console.log('deactive');
   if(player.getId() === 0) {
     for(let i=0; i<leftPlayerButtons.length; i++) {
       leftPlayerButtons[i].disabled = true;
@@ -136,10 +135,31 @@ export function deactivateButtons(player) {
   }
 }
 
+export function hideBoard(player) {
+  if(player.getId() === 0) {
+    for(let i=0; i<leftPlayerButtons.length; i++) {
+      leftPlayerButtons[i].classList.add('hide');
+    }
+  } else {
+    for(let i=0; i<rightPlayerButtons.length; i++) {
+      rightPlayerButtons[i].classList.add('hide');
+    }
+  }
+}
+
+export function showBoard(player) {
+  if(player.getId() === 0) {
+    for(let i=0; i<leftPlayerButtons.length; i++) {
+      leftPlayerButtons[i].classList.remove('hide');
+    }
+  } else {
+    for(let i=0; i<rightPlayerButtons.length; i++) {
+      rightPlayerButtons[i].classList.remove('hide');
+    }
+  }
+}
+
 export function displayBoard(player) {
   renderBoard(player);
   deactivateButtons(player);
 }
-
-// TO DO
-// 2. hide the gameboard on computer side
