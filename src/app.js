@@ -1,11 +1,10 @@
 /* eslint-disable no-plusplus */
 import './style.css';
 import Player from './player';
-import { displayBoard, enableBoard, disableBoard, displayPlayerTurn, displayResultsText, processClick, getPlayerHasClicked, setPlayerHasClicked } from './dom';
+import { displayBoard, enableBoard, disableBoard, displayPlayerTurn, processClick } from './dom';
 
 let leftPlayer = null;
 let rightPlayer = null;
-let gameEnded = false;
 let leftPlayerTurn;
 
 function determineFirstTurn() {
@@ -45,38 +44,14 @@ function generateValidCoords() {
   return [x, y];
 }
 
-function checkAllShipsSunk(player) {
-  if(player.getGameboard().allShipsSunk()) {
-    displayResultsText(player);
-    gameEnded = true;
-  }
-}
-
-function triggerCompTurn() {
+export function triggerCompTurn() {
   displayPlayerTurn(rightPlayer);
-  enableBoard(leftPlayer);
-  disableBoard(rightPlayer);
+  // enableBoard(leftPlayer);
+  // disableBoard(rightPlayer);
   const coords = generateValidCoords();
-  const squareId = `0${coords[0]}${coords[1]}}`;
-
-  processClick(+squareId, leftPlayer, coords[0], coords[1]);
-
-  checkAllShipsSunk(leftPlayer);
-  leftPlayerTurn = true;
-}
-
-function triggerPlayerTurn() {
+  const squareId = `0${coords[0]}${coords[1]}`;
+  processClick(squareId, leftPlayer, coords[0], coords[1]);
   displayPlayerTurn(leftPlayer);
-  enableBoard(rightPlayer);
-  disableBoard(leftPlayer);
-
-  while(!getPlayerHasClicked()) {
-    if(getPlayerHasClicked()) {
-      checkAllShipsSunk(rightPlayer);
-      leftPlayerTurn = false;
-    }
-  }
-  setPlayerHasClicked(false);
 }
 
 export default function runGame() {
@@ -94,12 +69,14 @@ export default function runGame() {
     leftPlayerTurn = false;
   }
 
-  while(!gameEnded) {
-    if(leftPlayerTurn) {
-      triggerPlayerTurn();
-    } else {
-      triggerCompTurn();
-    }
+  if(leftPlayerTurn) {
+    console.log('player turn');
+    displayPlayerTurn(leftPlayer);
+    // enableBoard(rightPlayer);
+    // disableBoard(leftPlayer);
+  } else {
+    console.log('comp turn');
+    triggerCompTurn();
   }
 }
 

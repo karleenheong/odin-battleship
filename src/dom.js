@@ -1,3 +1,5 @@
+import { triggerCompTurn } from "./app";
+
 /* eslint-disable no-plusplus */
 
 const container = document.querySelector('#container');
@@ -28,24 +30,28 @@ export function displayResultsText(player) {
   rightPlayerBoard.disabled = true;
 }
 
+function checkAllShipsSunk(player) {
+  if(player.getGameboard().allShipsSunk()) {
+    displayResultsText(player);
+  }
+}
+
 export function processClick(squareId, player, x, y) {
   const square = document.getElementById(squareId);
   player.getGameboard().receiveAttack([x, y]);
-  // check if click hits anything
-  if(square !== null) {
-    console.log('ooi');
-    if(player.getGameboard().getBoard()[x][y] >= 0) {
-      square.className = 'shipDead';
-    } else {
-      square.className = 'missedShot';
-    }
 
-    square.disabled = true;
+  // check if click hits anything
+  if(player.getGameboard().getBoard()[x][y] >= 0) {
+    square.className = 'shipDead';
+  } else {
+    square.className = 'missedShot';
   }
 
-  // if player board is the computer's, trigger computer turn
+  square.disabled = true;
+  checkAllShipsSunk(player);
+
   if(player.getId() === 1) {
-    playerHasClicked = true;
+    triggerCompTurn();
   }
 }
 
@@ -78,12 +84,9 @@ function renderBoard(player) {
       coordsTxt.textContent = `(${i},${j})`;
       square.appendChild(coordsTxt);
 
-      // if computer gameboard, add event listeners
-      if(player.getType() === 'comp' && square.className !== 'shipDead') {
-        square.addEventListener('click', () => {
-          processClick(square.id, player, i, j);
-        });
-      }
+      square.addEventListener('click', () => {
+        processClick(square.id, player, i, j);
+      });
       
       boardContainer.appendChild(square);
     }
