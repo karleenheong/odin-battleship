@@ -45,14 +45,18 @@ function generateValidCoords() {
   return [x, y];
 }
 
-export function triggerCompTurn() {
-  displayPlayerTurn(rightPlayer);
-  deactivateButtons(rightPlayer);
+function computerThinks() {
   const coords = generateValidCoords();
   const squareId = `0${coords[0]}${coords[1]}`;
   processClick(squareId, leftPlayer, coords[0], coords[1]);
   displayPlayerTurn(leftPlayer);
   activateButtons(rightPlayer);
+}
+
+export function triggerCompTurn() {
+  displayPlayerTurn(rightPlayer);
+  deactivateButtons(rightPlayer);
+  setTimeout(computerThinks, 500);
 }
 
 export default function runGame() {
@@ -72,11 +76,10 @@ export default function runGame() {
   }
 
   if(leftPlayerTurn) {
-    console.log('player turn');
     displayPlayerTurn(leftPlayer);
     activateButtons(rightPlayer);
   } else {
-    console.log('comp turn');
+    displayPlayerTurn(rightPlayer);
     deactivateButtons(rightPlayer);
     triggerCompTurn();
   }

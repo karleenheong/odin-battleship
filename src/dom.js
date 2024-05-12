@@ -6,9 +6,9 @@ const container = document.querySelector('#container');
 const instructions = document.querySelector('#instructions');
 const leftPlayerButtons = [];
 const rightPlayerButtons = [];
+let gameEnded = false;
 
 export function displayPlayerTurn(currentPlayer) {
-  instructions.textContent = '';
   if(currentPlayer.getId() === 0) {
     instructions.textContent = "Player One's Turn";
   } else {
@@ -17,7 +17,6 @@ export function displayPlayerTurn(currentPlayer) {
 }
 
 function displayResultsText(player) {
-  instructions.textContent = '';
   if(player.getId() === 0) {
     instructions.textContent = 'Player Two Wins!';
   } else {
@@ -47,6 +46,7 @@ function removeActiveButton(player, button) {
 
 function checkAllShipsSunk(player) {
   if(player.getGameboard().allShipsSunk()) {
+    gameEnded = true;
     displayResultsText(player);
     container.className = 'unclickable';
   }
@@ -68,7 +68,7 @@ export function processClick(squareId, player, x, y) {
   removeActiveButton(player, square);
   checkAllShipsSunk(player);
 
-  if(player.getId() === 1) {
+  if(player.getId() === 1 && !gameEnded) {
     triggerCompTurn();
   }
 }
