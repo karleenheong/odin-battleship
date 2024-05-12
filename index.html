@@ -6,8 +6,27 @@
     <title>K's Battleship</title>
   </head>
   <body>
-    <div id="container"></div>
-    <div id="instructions">X player's turn</div>
+    <div>
+      <div id="welcome">
+        <h1>Welcome to K's Battleship!</h1>
+        <h3>Sink all your enemy's ships!</h3>
+        <p>Each player has 10 ships:</p>
+        <ul>
+          <li>1 ship of length 4</li>
+          <li>2 ships of length 3</li>
+          <li>3 ships of length 2</li>
+          <li>4 ships of length 1</li>
+        </ul>
+        <p>Note: Each ship is separated by ocean, they don't touch each other!</p>
+        <h3>How to Play</h3>
+        <p>Click on a square on your opponent's board to uncover either a ship or empty ocean. The first player to sink the other player's ships wins!</p>
+        <button id='welcomeBtn'>START</button>
+      </div>
+    </div>
+    <div id="playArea">
+      <div id="container"></div>
+      <div id="instructions">X player's turn</div>
+    </div>
     <script src="./bundle.js"></script>
   </body>
 </html>
