@@ -26,7 +26,8 @@ body {
   background-color: darkslateblue;
 }
 
-#welcome {
+#welcome,
+#placeShips {
   padding: 30px 50px;
   display: flex;
   flex-direction: column;
@@ -39,7 +40,8 @@ body {
   align-items: center;
 }
 
-#welcomeBtn {
+#welcomeBtn,
+#startGameBtn {
   padding: 20px 30px;
   background-color: dodgerblue;
   border-radius: 10px;
@@ -85,7 +87,8 @@ button {
 
 .ocean,
 .ship,
-.shipDead {
+.shipDead,
+.potential {
   height: 95%;
   width: 95%;
 }
@@ -98,8 +101,13 @@ button {
   background-color: orange;
 }
 
-.hide {
+.hide,
+.undetermined {
   background-color: dodgerblue;
+}
+
+.potential {
+  background-color: greenyellow;
 }
 
 .shipDead {

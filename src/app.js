@@ -59,8 +59,8 @@ export function triggerCompTurn() {
   setTimeout(computerThinks, 500);
 }
 
-export default function runGame() {
-  leftPlayer = new Player(0, 'human');
+export default function runGame(gameboard) {
+  leftPlayer = new Player(0, 'human', gameboard);
   rightPlayer = new Player(1, 'comp');
 
   displayBoard(leftPlayer);

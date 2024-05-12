@@ -6,7 +6,7 @@
 import Ship from "./ship";
 
 export default class Gameboard {
-  constructor() {
+  constructor(userCoords) {
     this.board = new Array(10);
     this.missedShots = [];
     this.ships = [];
@@ -23,7 +23,9 @@ export default class Gameboard {
     }
 
     this.createShips();
-    this.placeShips();
+    if(!userCoords) {
+      this.placeShips();
+    }
   }
 
   createShips() {
@@ -206,6 +208,13 @@ export default class Gameboard {
 
   getBoard() {
     return this.board;
+  }
+
+  setCoords(coords, shipId) {
+    console.log(coords);
+    for(let i=0; i<coords.length; i++) {
+      this.board[coords[i][0]][coords[i][1]] = shipId;
+    }
   }
 
   getMissedShots() {

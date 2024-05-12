@@ -1,10 +1,15 @@
 import Gameboard from "./gameboard";
 
 export default class Player {
-  constructor(id, type) {
+  constructor(id, type, gameboard) {
     this.id = id;
     this.type = type;
-    this.gameboard = new Gameboard();
+
+    if(gameboard === null) {
+      this.gameboard = new Gameboard();
+    } else {
+      this.gameboard = gameboard;
+    }
   }
 
   getGameboard() {
