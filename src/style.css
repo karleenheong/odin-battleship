@@ -26,7 +26,9 @@ body {
   background-color: darkslateblue;
 }
 
-#welcome {
+#welcome,
+#shipPlacingScreen,
+#shipSelectionScreen {
   padding: 30px 50px;
   display: flex;
   flex-direction: column;
@@ -39,7 +41,12 @@ body {
   align-items: center;
 }
 
-#welcomeBtn {
+#welcomeBtn,
+#startChoose,
+#startRandom,
+#yesBtn,
+#noBtn,
+#beginBtn {
   padding: 20px 30px;
   background-color: dodgerblue;
   border-radius: 10px;
