@@ -29,24 +29,24 @@ function surroundedByEmptySquares(x, y, board) {
   return true;
 }
 
-export function generateHeadCoord(board) {
+function generateHeadCoord(board) {
   let validHead = false;
-    let x = Math.floor(Math.random() * 10)
-    let y = Math.floor(Math.random() * 10);
-
-    // make sure the head coord is free
-    while(!validHead) {
-      if(board[x][y] === -1 && surroundedByEmptySquares(x, y, board)) {
-        validHead = true;
-      } else {
-        x = Math.floor(Math.random() * 10);
-        y = Math.floor(Math.random() * 10);
-      }
+  let x = Math.floor(Math.random() * 10)
+  let y = Math.floor(Math.random() * 10);
+  
+  // make sure the head coord is free
+  while(!validHead) {
+    if(board[x][y] === -1 && surroundedByEmptySquares(x, y, board)) {
+      validHead = true;
+    } else {
+      x = Math.floor(Math.random() * 10);
+      y = Math.floor(Math.random() * 10);
     }
-    return [x, y];
+  }
+  return [x, y];
 }
 
-export function generateCoords(shipLength, board) {
+export default function generateCoords(shipLength, board) {
   let validPathFound = false;
   while(!validPathFound) {
     const head = generateHeadCoord(board);

@@ -4,7 +4,7 @@
 /* eslint-disable no-restricted-syntax */
 /* eslint-disable no-plusplus */
 import Ship from "./ship";
-import { generateCoords } from "./coordGen";
+import generateCoords from "./coordGen";
 
 export default class Gameboard {
   constructor() {
@@ -17,14 +17,17 @@ export default class Gameboard {
       this.board[i] = new Array(10);
     }
 
+    this.resetBoard();
+    this.createShips();
+    this.placeShips();
+  }
+
+  resetBoard() {
     for(let i=0; i<10; i++) {
       for(let j=0; j<10; j++) {
         this.board[i][j] = -1;
       }
     }
-
-    this.createShips();
-    this.placeShips();
   }
 
   createShips() {

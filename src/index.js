@@ -1,5 +1,5 @@
 import runGame from "./app";
-import Gameboard from "./gameboard";
+import Player from "./player";
 import { acceptCoord, randomCoord } from "./shipPlacer";
 
 const welcomeContainer = document.querySelector('#welcome');
@@ -14,9 +14,8 @@ const beginBtn = document.querySelector('#begin');
 const container = document.querySelector('#container');
 const instructions = document.querySelector('#instructions');
 
-let gameboard = null;
-let head = null;
-let counter = 0;
+let player = null;
+let coords = null;
 
 shipPlacingScreen.style.display = 'none';
 shipSelectionScreen.style.display = 'none';
@@ -31,26 +30,23 @@ function setupScreen() {
 function startGameChoose() {
   shipPlacingScreen.style.display = 'none';
   shipSelectionScreen.style.display = 'flex';
-  gameboard = new Gameboard();
-  head = randomCoord(gameboard);
+  player = new Player(0, 'human');
+  player.getGameboard().resetBoard();
+  coords = randomCoord(player);
 }
 
 function startGameWithBoard() {
   shipSelectionScreen.style.display = 'none';
   container.style.display = 'flex';
   instructions.style.display = 'block';
-  if(counter >= 9) {
-    runGame(gameboard);
-  } else {
-    runGame();
-  }
+  runGame(player);
 }
 
 function startGameRandom() {
   shipPlacingScreen.style.display = 'none';
   container.style.display = 'flex';
   instructions.style.display = 'block';
-  runGame();
+  runGame(player);
 }
 
 welcomeBtn.addEventListener('click', setupScreen);
@@ -58,13 +54,10 @@ startChooseBtn.addEventListener('click', startGameChoose)
 startRandomBtn.addEventListener('click', startGameRandom);
 beginBtn.addEventListener('click', startGameWithBoard);
 yesBtn.addEventListener('click', () => {
-  if(counter < 10) {
-    acceptCoord(gameboard, head);
-    counter += 1;
-  }
+  acceptCoord(player.getGameboard(), coords);
 });
 noBtn.addEventListener('click', () => {
-  head = randomCoord(gameboard);
+  coords = randomCoord(player.getGameboard());
 });
 
 
