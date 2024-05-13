@@ -33,7 +33,6 @@ function startGameChoose() {
   shipSelectionScreen.style.display = 'flex';
   player = new Player(0, 'human');
   player.getGameboard().resetBoard();
-  console.log(player);
   coords = randomCoord(player.getGameboard());
 }
 
@@ -41,6 +40,9 @@ function startGameWithBoard() {
   shipSelectionScreen.style.display = 'none';
   container.style.display = 'flex';
   instructions.style.display = 'block';
+  if(getCounter() < 10) {
+    player = null;
+  }
   runGame(player);
 }
 
