@@ -7,7 +7,7 @@
     "watch": "webpack --watch",
     "start": "webpack serve --open",
     "build": "webpack",
-    "gh": "git subtree push --prefix dist origin gh-pages"
+    "ghpages": "git subtree push --prefix dist origin gh-pages"
   },
   "keywords": [],
   "author": "",
