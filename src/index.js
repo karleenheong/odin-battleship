@@ -1,6 +1,6 @@
 import runGame from "./app";
 import Player from "./player";
-import { acceptCoord, randomCoord } from "./shipPlacer";
+import { acceptCoord, randomCoord, getCounter } from "./shipPlacer";
 
 const welcomeContainer = document.querySelector('#welcome');
 const welcomeBtn = document.querySelector('#welcomeBtn');
@@ -8,6 +8,7 @@ const shipPlacingScreen = document.querySelector('#shipPlacingScreen');
 const startChooseBtn = document.querySelector('#startChoose');
 const startRandomBtn = document.querySelector('#startRandom');
 const shipSelectionScreen = document.querySelector('#shipSelectionScreen');
+const choice = document.querySelector('#choice');
 const yesBtn = document.querySelector('#yes');
 const noBtn = document.querySelector('#no');
 const beginBtn = document.querySelector('#begin');
@@ -32,7 +33,8 @@ function startGameChoose() {
   shipSelectionScreen.style.display = 'flex';
   player = new Player(0, 'human');
   player.getGameboard().resetBoard();
-  coords = randomCoord(player);
+  console.log(player);
+  coords = randomCoord(player.getGameboard());
 }
 
 function startGameWithBoard() {
@@ -49,12 +51,27 @@ function startGameRandom() {
   runGame(player);
 }
 
+function checkButtons() {
+  const counter = getCounter();
+  if(counter >= 10) {
+    while(choice.firstChild){
+      choice.removeChild(choice.firstChild);
+    }
+    choice.textContent = "Finished placing ships. Let's begin!";
+    yesBtn.disabled = true;
+    noBtn.disabled = true;
+  } else {
+    coords = randomCoord(player.getGameboard());
+  }
+}
+
 welcomeBtn.addEventListener('click', setupScreen);
 startChooseBtn.addEventListener('click', startGameChoose)
 startRandomBtn.addEventListener('click', startGameRandom);
 beginBtn.addEventListener('click', startGameWithBoard);
 yesBtn.addEventListener('click', () => {
   acceptCoord(player.getGameboard(), coords);
+  checkButtons();
 });
 noBtn.addEventListener('click', () => {
   coords = randomCoord(player.getGameboard());

@@ -43,6 +43,7 @@ function generateHeadCoord(board) {
       y = Math.floor(Math.random() * 10);
     }
   }
+  // console.log(`${x},${y}`);
   return [x, y];
 }
 

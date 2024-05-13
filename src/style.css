@@ -44,14 +44,19 @@ body {
 #welcomeBtn,
 #startChoose,
 #startRandom,
-#yesBtn,
-#noBtn,
-#beginBtn {
+#yes,
+#no,
+#begin {
   padding: 20px 30px;
   background-color: dodgerblue;
   border-radius: 10px;
   color: white;
   font-size: 1.3rem;
+}
+
+#yes:disabled,
+#no:disabled {
+  background-color: lightgray;
 }
 
 p {

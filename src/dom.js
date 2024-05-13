@@ -78,8 +78,8 @@ function renderBoard(player) {
   boardContainer.className = 'boardContainer';
   container.appendChild(boardContainer);
 
-  for(let i=9; i>=0; i--) {
-    for(let j=0; j<10; j++) {
+  for(let j=9; j>=0; j--) {
+    for(let i=0; i<10; i++) {
       const square = document.createElement('button');
       square.id = `${player.getId()}${i}${j}`;
       const coordsTxt = document.createElement('p');
@@ -97,8 +97,8 @@ function renderBoard(player) {
       } else if(player.getGameboard().getBoard()[i][j] >= 0) {
           square.className = 'ship';
         }
-      // coordsTxt.textContent = `(${i},${j})`;
-      square.appendChild(coordsTxt);
+      coordsTxt.textContent = `(${i},${j})`;
+      // square.appendChild(coordsTxt);
 
       square.addEventListener('click', () => {
         processClick(square.id, player, i, j);
